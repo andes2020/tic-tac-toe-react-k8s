@@ -41,6 +41,31 @@ kubectl apply -f deploy.yml
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#tls-certificate-errors
 
 
+## Debug kubernetes commands
+
+1. Check for any error in current kubernetes context
+```bash
+kubectl version
+kubectl config current-context
+kubectl config 
+```
+
+2. Check for any error in deployment
+```bash
+kubectl describe deployment <deployment_name>
+```
+
+3. Check for any pods, services
+```bash
+kubectl get svc / kubectl get service
+kubectl get pods
+```
+
+4. Check for current cluster info
+```bash
+kubectl cluster-info
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
