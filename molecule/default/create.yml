@@ -11,10 +11,26 @@
       register: kind_result
       failed_when: "kind_result.rc != 0 or 'kind version' not in kind_result.stdout"
 
-    - debug:
-        var: kind_result
-
     - name: Build a kind cluster locally
-      command: |
-        kind create cluster --wait 300s --name molecule-test --kubeconfig {{ kubeconfig }}
+      shell: |
+        kind create cluster --wait 300s --name molecule-test
       changed_when: true
+      register: test
+
+    - debug:
+        var: test
+
+    - name: Backup and update current kubeconfig
+      shell: |
+        mv  ~/.kube ~/.kube.bak
+        mkdir ~/.kube
+        cp -i ./~/.kube/config ~/.kube/config
+        chown $(id -u):$(id -g) ~/.kube/config
+
+    - name: test kind cluster config
+      command: |
+        cat {{ kubeconfig }}
+      register: k
+
+    - debug:
+        var: k

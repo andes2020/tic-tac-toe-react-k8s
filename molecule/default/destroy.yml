@@ -16,5 +16,31 @@
 
     - name: Destroy a kind cluster locally
       command: |
-        kind delete cluster --name molecule-test --kubeconfig {{ kubeconfig }}
+        kind delete cluster --name molecule-test
       changed_when: false
+
+    - name: Check backedup kubeconfig exist
+      stat:
+        path: ~/.kube.bak
+      register: test_bak_config_exist
+
+    - debug:
+        var: test_bak_config_exist
+
+    - name: Delete current kube folder if backup folder exists
+      file:
+        path: ~/.kube
+        state: absent
+      when: test_bak_config_exist.stat.exists and test_bak_config_exist.stat.isdir
+
+    - name: Restore original kubeconfig if backup folder exists
+      shell: |
+        mv ~/.kube.bak ~/.kube
+        export KUBECONFIG="{{ kubeconfig }}"
+      register: test
+      when: test_bak_config_exist.stat.exists and test_bak_config_exist.stat.isdir
+
+    - name: Clean up current directory kubeconfig created by kind
+      file:
+        path: ./~
+        state: absent

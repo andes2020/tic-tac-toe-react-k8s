@@ -35,6 +35,11 @@ kubectl apply -f deploy.yml
 
 2. pip install -r requirements.txt
 
+3. molecule test -s default
+
+4. Fix weird kinD behavior in mac
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#tls-certificate-errors
+
 
 # Getting Started with Create React App
 

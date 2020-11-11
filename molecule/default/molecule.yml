@@ -18,7 +18,7 @@ provisioner:
         kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
         molecule_no_log: false
   env:
-    KUBECONFIG: ~/.kube/molecule-test
-    K8S_AUTH_KUBECONFIG: ~/.kube/molecule-test
+    KUBECONFIG: ~/.kube/config
+    K8S_AUTH_KUBECONFIG: ~/.kube/config
 # verifier:
 #   name: ansible

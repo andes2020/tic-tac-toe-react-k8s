@@ -6,5 +6,8 @@
     - name: Deploy 'tic-tac-toe'
       k8s:
         state: present
-        definition: "{{ lookup('file', '../deploy_k8s.yml')}}"
+        definition: "{{ item }}"
+        kubeconfig: "{{ kubeconfig }}"
         wait: true
+      loop: "{{ lookup('file', 'kube_template/deploy_k8s.yml') | from_yaml_all | list }}"
+      no_log: false

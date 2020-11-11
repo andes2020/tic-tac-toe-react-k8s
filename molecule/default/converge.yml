@@ -1,7 +1,7 @@
 ---
 - name: Converge
-  hosts: all
-  tasks:
-    - name: "Include tic-tac-toe-k8s"
-      include_role:
-        name: "tic-tac-toe-k8s"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+- import_playbook: ../../main.yml
