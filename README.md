@@ -29,6 +29,13 @@ kubectl apply -f deploy.yml
 ## Deploy to aws
 1.  export KUBECONFIG=~/.kube/eks-andes
 
+
+## Local testing with kind and molecule
+1. brew install kind docker
+
+2. pip install -r requirements.txt
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

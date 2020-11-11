@@ -6,12 +6,15 @@
   no_log: "{{ molecule_no_log }}"
   tasks:
     - name: Ensure kind is present locally
-      command: |
-        export PATH="$(go env GOPATH)/bin/kind:$PATH"
-        kind
+      command: >-
+        kind --version
+      register: kind_result
+      failed_when: "kind_result.rc != 0 or 'kind version' not in kind_result.stdout"
+
+    - debug:
+        var: kind_result
 
     - name: Build a kind cluster locally
       command: |
-        export PATH="$(go env GOPATH)/bin/kind:$PATH"
-        kind create cluster --wait 300 --name molecule-test --kubeconfig {{ kubeconfig }}
+        kind create cluster --wait 300s --name molecule-test --kubeconfig {{ kubeconfig }}
       changed_when: true
