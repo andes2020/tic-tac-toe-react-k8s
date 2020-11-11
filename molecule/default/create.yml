@@ -20,6 +20,8 @@
     - debug:
         var: test
 
+    # This fixes a weird behavior of kinD not getting correct kubeconfig file
+    # See https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#tls-certificate-errors
     - name: Backup and update current kubeconfig
       shell: |
         mv  ~/.kube ~/.kube.bak

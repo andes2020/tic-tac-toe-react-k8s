@@ -27,6 +27,8 @@
     - debug:
         var: test_bak_config_exist
 
+    # This fixes a weird behavior of kinD not getting correct kubeconfig file
+    # See https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#tls-certificate-errors
     - name: Delete current kube folder if backup folder exists
       file:
         path: ~/.kube
