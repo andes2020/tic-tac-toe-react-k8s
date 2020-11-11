@@ -1,3 +1,16 @@
+# Tic-tac-toe react app with local molecule testing and github actions
+
+Using KinD (kubernetes in docker), we can run local testing for kubnetes deployment.
+So that we can leverage this in any CICD and automate code push to deployment cycle.
+
+I will try to demo this in github actions as demo pipeline run.
+
+1. Passing this molecule test, we can push the new image to docker registry.
+
+2. Then, apply to any cloud (Azure, AWS, GCP) with passing CICD status.
+
+
+### Stage 1 --> Local testing 
 1. Build optimised npm packages
 ```bash
 npm run-script build
@@ -15,22 +28,7 @@ COPY build/ /usr/share/nginx/html
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
-5. Build and tag the image for pushing to docker hub registry
-```bash
-docker build -t tic-tac-toe .
-docker tag tic-tac-toe andeslam2019/tic-tac-toe:latest
-docker push andeslam2019/tic-tac-toe:latest
-```
-
-6. Deploy this new image in k8s
-kubectl apply -f deploy.yml
-
-
-## Deploy to aws
-1.  export KUBECONFIG=~/.kube/eks-andes
-
-
-## Local testing with kind and molecule
+### Stage 2 --> Local testing with kind and molecule
 1. brew install kind docker
 
 2. pip install -r requirements.txt
@@ -39,6 +37,24 @@ kubectl apply -f deploy.yml
 
 4. Fix weird kinD behavior in mac
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#tls-certificate-errors
+
+
+### Stage 3 --> Push react app docker image to registry
+5. Build and tag the image for pushing to docker hub registry
+```bash
+docker build -t tic-tac-toe .
+docker tag tic-tac-toe andeslam2019/tic-tac-toe:latest
+docker push andeslam2019/tic-tac-toe:latest
+```
+
+### Stage 4 (Final) --> Deploy to aws (Example)
+1. export KUBECONFIG=~/.kube/eks-andes
+2. Using github secrets
+
+Deploy this new image in k8s
+```bash
+kubectl apply -f deploy.yml
+```
 
 
 ## Debug kubernetes commands
