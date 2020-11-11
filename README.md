@@ -1,5 +1,7 @@
 # Tic-tac-toe react app with local molecule testing and github actions
 
+Resultant Demo link: http://ad9f8ef085f4b4c5fab23978da8bb0e2-1483591334.eu-west-2.elb.amazonaws.com/
+
 Using KinD (kubernetes in docker), we can run local testing for kubnetes deployment.
 So that we can leverage this in any CICD and automate code push to deployment cycle.
 
