@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Deploy 'tic-tac-toe'
+      k8s:
+        state: present
+        definition: "{{ lookup('file', '../deploy_k8s.yml')}}"
+        wait: true

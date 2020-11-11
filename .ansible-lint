@@ -1,0 +1,4 @@
+exclude_paths:
+  - ./kube_template/
+skip_list:
+  - '301'

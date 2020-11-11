@@ -1,0 +1,12 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  tasks:
+    - name: Destroy a kind cluster locally
+      command: |
+        export PATH="$(go env GOPATH)/bin/kind:$PATH"
+        kind delete cluster --wait 300 --name molecule-test --kubeconfig {{ kubeconfig }}
+      changed_when: false
